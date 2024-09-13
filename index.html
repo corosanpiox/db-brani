@@ -72,11 +72,12 @@
             try {
                 const response = await fetch(url, {
                     method: 'POST',
-                    body: formData
+                    body: formData,
+                    mode: 'no-cors' // Imposta la modalità no-cors
                 });
 
-                const result = await response.text();
-                document.getElementById('response').textContent = result;
+                // Poiché no-cors non restituisce una risposta leggibile, possiamo solo confermare l'invio
+                document.getElementById('response').textContent = 'Dati inviati con successo!';
             } catch (error) {
                 console.error('Errore:', error);
                 document.getElementById('response').textContent = 'Errore nell\'invio dei dati.';
