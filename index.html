@@ -27,7 +27,7 @@
         <font size="4">
         <br><br>
         
-        <label for="nome">Parola chiave:&nbsp&nbsp</label>
+        <label for="keyword">Parola chiave:&nbsp&nbsp</label>
         <input type="text" id="keyword" name="keyword">
         <br><br>
 
@@ -36,17 +36,15 @@
         <input type="checkbox" id="momentoandkeyword" name="momentoandkeyword" value="momentoandkeyword">
         <br>
             
-        <label for="messe_speciali">Escludi messe "speciali"</label>
-        <input type="checkbox" id="messe_speciali" name="messe_speciali" value="messe_speciali">
+        <label for="messespeciali">Escludi messe "speciali"</label>
+        <input type="checkbox" id="messespeciali" name="messespeciali" value="messespeciali">
         <br>
         
-        <label for="brani_facili">Solo brani facili/conosciuti</label>
-        <input type="checkbox" id="brani_facili" name="brani_facili" value="brani_facili">
+        <label for="branifacili">Solo brani facili/conosciuti</label>
+        <input type="checkbox" id="branifacili" name="branifacili" value="branifacili">
         <br><br>
 
-        <font size="5">
         <button type="submit" style="height:40px; width:100px">Aggiorna</button>
-        <font size="4">
     </form>
 
     <p id="response"></p>
@@ -55,14 +53,21 @@
         document.getElementById('dataForm').addEventListener('submit', async function(event) {
             event.preventDefault();
 
-            const nome = document.getElementById('nome').value;
-            const email = document.getElementById('email').value;
+            const momentomessa = document.getElementById('messa').value;
+            const keyword = document.getElementById('keyword').value;
+            const momentoandkeyword = document.getElementById('momentoandkeyword').value;
+            const messespeciali = document.getElementById('messespeciali').value;
+            const branifacili = document.getElementById('branifacili').value;
+            
             const url = 'https://script.google.com/macros/s/AKfycbx_WTW60k1t22KDHE6S1biLggNAs18-ikYwwwHo_843yN38v8cFmXAk1-ZvdmSkw5iy/exec';  // Inserisci l'URL del tuo Google Apps Script qui
 
             // Crea un oggetto formData con i dati del modulo
             const formData = new URLSearchParams();
-            formData.append('nome', nome);
-            formData.append('email', email);
+            formData.append('momentomessa', momentomessa);
+            formData.append('keyword', keyword);
+            formData.append('momentoandkeyword', momentoandkeyword);
+            formData.append('messespeciali', messespeciali);
+            formData.append('branifacili', branifacili);
 
             try {
                 const response = await fetch(url, {
