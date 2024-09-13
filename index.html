@@ -72,8 +72,7 @@
             try {
                 const response = await fetch(url, {
                     method: 'POST',
-                    body: formData,
-                    mode: 'no-cors' // Imposta la modalità no-cors
+                    body: formData
                 });
 
                 // Poiché no-cors non restituisce una risposta leggibile, possiamo solo confermare l'invio
