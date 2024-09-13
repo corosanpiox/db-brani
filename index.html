@@ -6,24 +6,39 @@
     <title>Invia Dati a Google Sheets</title>
 </head>
 <body>
-    <h1>Modulo di Inserimento Dati</h1>
+    <h1>Brani coro</h1>
+    <h3>Ricerca per:</h3>
     <form id="dataForm">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required>
+        <font size="4">
+        <label for="momento-messa">Momento messa:&nbsp&nbsp</label>
+        <font size="5">
+        <select name="messa" id="messa">
+            <option value="none">&nbsp-</option>
+            <option value="Inizio">Inizio</option>
+            <option value="Gloria">Gloria</option>
+            <option value="Salmo">Salmo</option>
+            <option value="Vangelo">Vangelo</option>
+            <option value="Offertorio">Offertorio</option>
+            <option value="Santo">Santo</option>
+            <option value="Pace">Pace</option>
+            <option value="Comunione">Comunione</option>
+            <option value="Fine">Fine</option>
+        </select>
+        <font size="4">
         <br><br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+        
+        <label for="nome">Parola chiave:&nbsp&nbsp</label>
+        <input type="text" id="keyword" name="keyword">
         <br><br>
-        <button type="submit">Invia</button>
+            
+        <label for="momentoandkeyword">Momento & parola chiave</label>
+        <input type="checkbox" id="momentoandkeyword" name="momentoandkeyword" value="momentoandkeyword">
+        <br><br>
+            
+        <font size="5">
+        <button type="submit">Aggiorna</button>
+        <font size="4">
     </form>
-
-    <label for="dog-names">Choose a dog name:</label>
-    <select name="dog-names" id="dog-names">
-        <option value="rigatoni">Rigatoni</option>
-        <option value="dave">Dave</option>
-        <option value="pumpernickel">Pumpernickel</option>
-        <option value="reeses">Reeses</option>
-    </select>
 
     <p id="response"></p>
 
