@@ -3,84 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brani coro</title>
+    <title>Tabella Interattiva con Bootstrap e jQuery</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    <h1>Brani coro</h1>
-    <h3>Ricerca per:</h3>
-    <form id="dataForm">
-        <font size="4">
-        <label for="messa">Momento messa:&nbsp&nbsp</label>
-        <font size="5">
-        <select name="messa" id="messa">
-            <option value="none">&nbsp-</option>
-            <option value="Inizio">Inizio</option>
-            <option value="Gloria">Gloria</option>
-            <option value="Salmo">Salmo</option>
-            <option value="Vangelo">Vangelo</option>
-            <option value="Offertorio">Offertorio</option>
-            <option value="Santo">Santo</option>
-            <option value="Pace">Pace</option>
-            <option value="Comunione">Comunione</option>
-            <option value="Fine">Fine</option>
-        </select>
-        <font size="4">
-        <br><br>
+    <div class="container mt-5">
+        <h1 class="text-center">Inserisci Dati e Visualizza Nella Tabella</h1>
         
-        <label for="keyword">Parola chiave:&nbsp&nbsp</label>
-        <input type="text" id="keyword" name="keyword">
-        <br><br>
+        <!-- Modulo di Inserimento Dati -->
+        <form id="dataForm" class="mb-4">
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="momentomessa" class="form-label">Momento Messa</label>
+                    <input type="text" class="form-control" id="momentomessa" name="momentomessa" required>
+                </div>
+                <div class="col">
+                    <label for="keyword" class="form-label">Keyword</label>
+                    <input type="text" class="form-control" id="keyword" name="keyword" required>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="momentoandkeyword" class="form-label">Momento + Keyword</label>
+                    <input type="text" class="form-control" id="momentoandkeyword" name="momentoandkeyword" required>
+                </div>
+                <div class="col">
+                    <label for="messespeciali" class="form-label">Messe Speciali</label>
+                    <input type="text" class="form-control" id="messespeciali" name="messespeciali" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="branifacili" class="form-label">Brani Facili</label>
+                <input type="text" class="form-control" id="branifacili" name="branifacili" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Invia Dati</button>
+        </form>
 
-        <h3>Filtri</h3>
-        <label for="momentoandkeyword">Momento & parola chiave</label>
-        <input type="checkbox" id="momentoandkeyword" name="momentoandkeyword">
-        <br>
-            
-        <label for="messespeciali">Escludi messe "speciali"</label>
-        <input type="checkbox" id="messespeciali" name="messespeciali">
-        <br>
-        
-        <label for="branifacili">Solo brani facili/conosciuti</label>
-        <input type="checkbox" id="branifacili" name="branifacili">
-        <br><br>
-
-        <button type="submit" style="height:40px; width:100px">Aggiorna</button>
-    </form>
-
-    <p id="response"></p>
+        <!-- Tabella Interattiva -->
+        <h2 class="text-center">Dati Inseriti</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Momento Messa</th>
+                    <th>Keyword</th>
+                    <th>Momento + Keyword</th>
+                    <th>Messe Speciali</th>
+                    <th>Brani Facili</th>
+                </tr>
+            </thead>
+            <tbody id="dataTableBody">
+                <!-- I dati verranno aggiunti qui dinamicamente -->
+            </tbody>
+        </table>
+    </div>
 
     <script>
-        document.getElementById('dataForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
+        $(document).ready(function() {
+            $('#dataForm').submit(function(event) {
+                event.preventDefault();  // Previene il comportamento di invio standard
 
-            const momentomessa = document.getElementById('messa').value;
-            const keyword = document.getElementById('keyword').value;
-            const momentoandkeyword = document.getElementById('momentoandkeyword').checked;
-            const messespeciali = document.getElementById('messespeciali').checked;
-            const branifacili = document.getElementById('branifacili').checked;
-            
-            const url = 'https://script.google.com/macros/s/AKfycbx_U96BTAiKfGFfgjMgFgQqdlWGsryLJvl9D3AHrSA_HVkox86M81i9ZTGAb2FgTsPa/exec';  // Inserisci l'URL del tuo Google Apps Script qui
+                // Ottieni i dati dal modulo
+                var momentomessa = $('#momentomessa').val();
+                var keyword = $('#keyword').val();
+                var momentoandkeyword = $('#momentoandkeyword').val();
+                var messespeciali = $('#messespeciali').val();
+                var branifacili = $('#branifacili').val();
 
-            // Crea un oggetto formData con i dati del modulo
-            const formData = new URLSearchParams();
-            formData.append('momentomessa', momentomessa);
-            formData.append('keyword', keyword);
-            formData.append('momentoandkeyword', momentoandkeyword);
-            formData.append('messespeciali', messespeciali);
-            formData.append('branifacili', branifacili);
+                // Costruisci la riga della tabella con i dati inseriti
+                var newRow = `
+                    <tr>
+                        <td>${momentomessa}</td>
+                        <td>${keyword}</td>
+                        <td>${momentoandkeyword}</td>
+                        <td>${messespeciali}</td>
+                        <td>${branifacili}</td>
+                    </tr>
+                `;
 
-            try {
-                const response = await fetch(url, {
+                // Aggiungi la nuova riga alla tabella
+                $('#dataTableBody').append(newRow);
+
+                // Resetta il modulo dopo l'invio
+                $('#dataForm')[0].reset();
+
+                // Se desideri inviare anche i dati a Google Sheets, puoi usare una fetch API come prima
+                // Ricorda di aggiungere qui il tuo script di Google Apps per inviare i dati al foglio
+                /*
+                const url = 'https://script.google.com/macros/s/TUO-SCRIPT-ID/exec';  // Inserisci l'URL del tuo Google Apps Script qui
+                fetch(url, {
                     method: 'POST',
-                    body: formData
+                    body: new URLSearchParams({
+                        momentomessa: momentomessa,
+                        keyword: keyword,
+                        momentoandkeyword: momentoandkeyword,
+                        messespeciali: messespeciali,
+                        branifacili: branifacili
+                    }),
+                    mode: 'no-cors'
                 });
-
-                // Poiché no-cors non restituisce una risposta leggibile, possiamo solo confermare l'invio
-                document.getElementById('response').textContent = 'Dati inviati con successo!';
-            } catch (error) {
-                console.error('Errore:', error);
-                document.getElementById('response').textContent = 'Errore nell\'invio dei dati.';
-            }
+                */
+            });
         });
     </script>
 </body>
